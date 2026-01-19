@@ -1,3 +1,24 @@
+# Notice from fork creator (lot of text warning)
+
+Hello! The name is SpeedRunHunter, or just Hunter if you don't have much time. I'm just a goof software dev, with too much time on their hands, wanting to play some games on Linux through Lutris. Said games may be ROMS, but not from the TOSEC project. This causes Lutris to not recognize said ROMS, hence I can't use the ROM drag and drop method, thus needing them to be manually added one after another. And given I'm trying RetroAchievement hunting, I don't know, have you seen how many Sonic games - retail, homebrew or hacks - have cheevos? Nevermind some games that have subsets.
+
+After trying the original script, downloaded through `pypi`, and it not working, because of a missing `steam_id` column in the `games` table in the sqlite `pga.db` file - which is happening because the table has since been changed to a `service` and `service_id` setup, where to replace `steam_id`, `service` will hold the value of `"steam"` and the id will be the actual steam store ID of the game in question -, and seeing some other open issues on the repository, and having recently gotten more familiarized with Python - admitedly through "The Farmer Was Replaced" game, and not some other more proper means -, I thought to take this repo and code as a base, and fix it up for modern Lutris.
+
+I will say this much though; I'm not about to vibe code update this. I may know more Java than Python, because we used and started with Java in high school and I disliked Python, largely because of the different syntax and dynamic typing. But I won't just take an AI to do the job for me because of that. Especially if I explicitly played "The Farmer Was Replaced" to try and like Python, might as well put that to some better use now, and learn even more Python.
+
+I don't know what else I'll do with this code beyond updating it. Should issues come up, I'll try to fix them obviously, but I don't really have my own ideas for additional features. Well maybe one:
+- what if you want the ROM in question to be loaded by libretro, a.k.a RetroArch, besides specifying `libretro` as the runner, and the console platform, like "Sony Playstation 2", you could also maybe specify the libretro core, like `LRPS2`
+
+But that's about the only thing I could come up with for now.
+
+Either way,<br/>
+Thanks for reading.
+
+#### The original `README.md` is as follows
+
+---
+<br/>
+
 # `lutris-bulk-adder`
 
 ## Description
