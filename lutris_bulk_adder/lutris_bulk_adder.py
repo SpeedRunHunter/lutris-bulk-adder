@@ -79,16 +79,15 @@ def scan_for_filetypes(dir, types):
                     pass
     return files
 
-
 def main():
     parser = argparse.ArgumentParser(description='Scan a directory for ROMs to add to Lutris.')
     
     # Required arguments
-    parser.add_argument('-d', '--directory', type=directory, required=True,
+    parser.add_argument('-d', '--directory', type=directory,
                         help='Directory to scan for games.')
-    parser.add_argument('-r', '--runner', type=str, required=True,
+    parser.add_argument('-r', '--runner', type=str,
                         help='Name of Lutris runner to use.')
-    parser.add_argument('-p', '--platform', type=str, required=True, choices=PLATFORMS,
+    parser.add_argument('-p', '--platform', type=str, choices=PLATFORMS,
                         help='Platform name.')
 
     # Lutris paths
@@ -96,13 +95,15 @@ def main():
                         default=os.path.join(os.path.expanduser('~'), '.local', 'share', 'lutris', 'pga.db'),
                         help='Path to the Lutris SQLite database.')
     parser.add_argument('-ly', '--lutris-yml-dir', type=directory,
-                        default=os.path.join(os.path.expanduser('~'), '.config', 'lutris', 'games'),
+                        default=os.path.join(os.path.expanduser('~'), '.local', 'share', 'lutris', 'games'),
                         help='Directory containing Lutris yml files.')
     parser.add_argument('-lg', '--lutris-game-dir', type=directory,
                         default=os.path.join(os.path.expanduser('~'), 'Games'),
                         help='Lutris games install dir.')
 
     # Other options
+    parser.add_argument('-i', "--platform-info", type=str,
+                        help='List information for a given platform (runners, cores if libretro is an option and defaults)')
     parser.add_argument('-f', '--file-types', type=str, nargs='*', default=DEFAULT_ROM_FILE_EXTS,
                         help='Space-separated list of file types to scan for.')
     parser.add_argument('-o', '--game-options', type=option_list,
@@ -115,6 +116,20 @@ Do not write YML files or alter Lutris database, only print data to be written o
     """)
 
     args = parser.parse_args()
+
+    platform_info = args.platform_info
+    if platform_info:
+        platform = PLATFORMS[platform_info]
+        print(type(platform))
+        cores = platform["cores"]
+        print("{}:".format(platform_info))
+        print("\tRunners: {}".format(platform["runners"]))
+        print("\tDefault runner: {}".format(platform["default_runner"]))
+        if cores:
+            print("\t Cores: {}".format(cores))
+            print("\t Default core: {}".format(platform["default_core"]))
+        sys.exit(0);
+
 
     # Lutris SQLite db
     if os.path.isfile(args.lutris_database):
