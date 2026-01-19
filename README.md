@@ -8,6 +8,9 @@ I will say this much though; I'm not about to vibe code update this. I may know 
 
 I don't know what else I'll do with this code beyond updating it. Should issues come up, I'll try to fix them obviously, but I don't really have my own ideas for additional features. Well maybe one:
 - what if you want the ROM in question to be loaded by libretro, a.k.a RetroArch, besides specifying `libretro` as the runner, and the console platform, like "Sony Playstation 2", you could also maybe specify the libretro core, like `LRPS2`
+  - I guess if I could provide a list of cores in the case of RetroArch, what about being able to provide a list for runners too?
+  - and for that matter, what are the chances that someone importing games is going to think precisely about whether they want their PS2 games loaded with standalone PCSX2 or retroarch's libretro fork LRPS2? If they want to choose, I believe they should be able to, but if the user otherwise can't/doesn't care, as long as at least a supported platform is provided, the script could just pick a default
+  - and even in the case of providing a default option, what is the guarantee the user has the agiven runner or core installed? - or in other words, this would also involve probing directories; which I guess this script messes around with a sqlite file too, so... ¯\_(ツ)_/¯
 
 But that's about the only thing I could come up with for now.
 
