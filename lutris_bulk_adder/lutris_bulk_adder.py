@@ -8,7 +8,7 @@ import yaml
 import sqlite3
 from datetime import datetime
 
-from .constants import PLATFORMS, DEFAULT_ROM_FILE_EXTS
+from constants import PLATFORMS, DEFAULT_ROM_FILE_EXTS
 
 def option_list(options):
     """Option list type for argparse
