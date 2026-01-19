@@ -8,66 +8,7 @@ import yaml
 import sqlite3
 from datetime import datetime
 
-DEFAULT_ROM_FILE_EXTS = ['iso', 'zip', 'sfc', 'gba', 'gbc', 'gb', 'md', 'n64',
-                         'nes', '32x', 'gg', 'sms', 'bin']
-PLATFORMS = [
-    '3DO',
-    'Amstrad CPC',
-    'Arcade',
-    'Atari 2600',
-    'Atari 7800',
-    'Atari 800/5200',
-    'Atari 8bit computers',
-    'Atari Jaguar',
-    'Atari Lynx',
-    'Atari ST/STE/TT/Falcon',
-    'Bandai WonderSwan',
-    'ChaiLove',
-    'Commodore 128',
-    'Commodore 16/Plus/4',
-    'Commodore 64',
-    'Commodore VIC-20'
-    'J2ME',
-    'Magnavox Odyssey²',
-    'MS-DOS',
-    'MSX/MSX2/MSX2+',
-    'NEC PC Engine (SuperGrafx)',
-    'NEC PC Engine (TurboGrafx-16)',
-    'NEC PC Engine TurboGrafx-16',
-    'NEC PC-98',
-    'NEC PC-FX',
-    'Nintendo 3DS',
-    'Nintendo DS',
-    'Nintendo Game Boy (Color)',
-    'Nintendo Game Boy Advance',
-    'Nintendo Game Boy Color',
-    'Nintendo GameCube',
-    'Nintendo N64',
-    'Nintendo NES',
-    'Nintendo SNES',
-    'Nintendo Virtual Boy',
-    'Nintendo Wii',
-    'Nintendo Wii/Gamecube',
-    'Sega Dreamcast',
-    'Sega Game Gear',
-    'Sega Genesis',
-    'Sega Genesis/Mega Drive',
-    'Sega Maste System/Gamegear',
-    'Sega Master System',
-    'Sega Saturn',
-    'Sharp X68000',
-    'Sinclair ZX Spectrum',
-    'Sinclair ZX81',
-    'SNK Neo Geo Pocket (Color)',
-    'SNK Neo Geo Pocket',
-    'Sony PlayStation 2',
-    'Sony PlayStation 3',
-    'Sony PlayStation Portable',
-    'Sony PlayStation',
-    'Uzebox',
-    'Vectrex',
-    'Z-Machine'
-]
+from .constants import PLATFORMS, DEFAULT_ROM_FILE_EXTS
 
 def option_list(options):
     """Option list type for argparse
