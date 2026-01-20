@@ -134,6 +134,27 @@ def format_list(list: list, format_str: str, print_multiple_lines = True, multip
 
     return final_str
 
+def print_info_for_platform(platform_info: str):
+    """Given a name for a platform, print all the available information about it - runners, libretro cores, if libretro is available as a runner, and default runner and core, if the default runner is libretro
+    
+    Args:
+        platform_info: A string literal of the platform in question. This is treated as a key into the `PLATFORMS` dictionary.
+
+    Raises:
+        KeyError: the input platform string could not be found in the PLATFORMS dictionary.
+    """
+
+    platform = PLATFORMS[platform_info]
+    
+    cores = platform["cores"]
+    default_runner = platform["default_runner"]
+    print("{}:".format(platform_info))
+    print("\tRunners: {}".format(', '.join(platform["runners"])))
+    print("\tDefault runner: {}".format(default_runner))
+    if cores:
+        print("\t\tLibretro cores: {}".format(', '.join(cores)))
+        if default_runner == "libretro": print("\t\tDefault libretro core: {}".format(platform["default_core"]))
+
 def main():
     parser = argparse.ArgumentParser(description='Scan a directory for ROMs to add to Lutris.', add_help=False)
 
@@ -163,6 +184,8 @@ def main():
     # New options
     parser.add_argument('-i', "--platform-info", type=str,
                         help='List information for a given platform (runners, cores if libretro is an option and defaults)')
+    parser.add_argument('-a', "--dump-platform-info", action='store_true',
+                        help='Dump all available information related to every and all known platforms')
     
     # Other options
     parser.add_argument('-f', '--file-types', type=str, nargs='*', default=DEFAULT_ROM_FILE_EXTS,
@@ -204,6 +227,8 @@ options:
                         Lutris games install dir.
   -i, --platform-info PLATFORM_INFO
                         List information for a given platform (runners, cores if libretro is an option and defaults)
+  -a, --dump-platform-info
+                        Dump all available information related to every and all known platforms
   -f, --file-types [FILE_TYPES ...]
                         Space-separated list of file types to scan for.
   -o, --game-options GAME_OPTIONS
@@ -214,19 +239,19 @@ options:
               .format(format_list(list(PLATFORMS.keys()), '\t\t\t', multiple_items_per_line=True)))
         sys.exit(0)
 
+    dump_platform_info = args.dump_platform_info
+    if dump_platform_info:
+        for platform in list(PLATFORMS.keys()):
+            print_info_for_platform(platform)
+        sys.exit(0)
+
     platform_info = args.platform_info
     if platform_info:
-        platform = PLATFORMS[platform_info]
-        cores = platform["cores"]
-        default_runner = platform["default_runner"]
-        print("{}:".format(platform_info))
-        print("\tRunners: {}".format(', '.join(platform["runners"])))
-        print("\tDefault runner: {}".format(default_runner))
-        if cores:
-            print("\t    Libretro cores: {}".format(', '.join(cores)))
-            if default_runner == "libretro": print("\t    Default libretro core: {}".format(platform["default_core"]))
+        try:
+            print_info_for_platform(platform_info)
+        except KeyError as err:
+            print("Error trying to print information for platform {}; did you make a typo perhaps?\n\nAlso note that Python is case-sensitive with dictionaries, so you must ensure proper case format in your input platform's name.\n\tFor example, instead of 'sega genesis' try 'Sega Genesis'.".format(err))
         sys.exit(0);
-
 
     # Lutris SQLite db
     if os.path.isfile(args.lutris_database):
