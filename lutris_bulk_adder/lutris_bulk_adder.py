@@ -6,7 +6,7 @@ import sys
 import argparse
 import yaml
 import sqlite3
-from datetime import datetime
+from datetime import datetime, timezone
 
 from constants import PLATFORMS, DEFAULT_ROM_FILE_EXTS
 
@@ -310,7 +310,7 @@ options:
     # Scan dir for ROMs
     files = scan_for_filetypes(args.directory, args.file_types)
     for file in files:
-        ts = int(datetime.utcnow().timestamp())
+        ts = int(datetime.now(timezone.utc).timestamp())
 
         # Generate game name and slug from filename
         game = re.sub(r"\..*", "", os.path.basename(file))  # Strip extension
