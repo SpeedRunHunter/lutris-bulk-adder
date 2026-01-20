@@ -216,35 +216,42 @@ Do not write YML files or alter Lutris database, only print data to be written o
 
     help = args.help
     if help:
-        print("""usage: lutris_bulk_adder.py [-h] [-d DIRECTORY] [-r RUNNER]
-                            [-p PLATFORM (see choices below)]
-                            [-ld LUTRIS_DATABASE] [-ly LUTRIS_YML_DIR] [-lg LUTRIS_GAME_DIR] [-i PLATFORM_INFO] [-a] [-f [FILE_TYPES ...]] [-o GAME_OPTIONS] [-s [STRIP_FILENAME ...]]
-                            [-n]
+        print("""usage: lutris_bulk_adder.py [-h] 
+                            -p PLATFORM (see choices below) -d DIRECTORY
+                            [-r RUNNER] [-c CORE]
+                            [-ld LUTRIS_DATABASE] [-ly LUTRIS_YML_DIR] [-lg LUTRIS_GAME_DIR]
+                            [-i PLATFORM_INFO] [-a]
+                            [-f [FILE_TYPES ...]] [-o GAME_OPTIONS] [-s [STRIP_FILENAME ...]] [-n]
 
 Scan a directory for ROMs to add to Lutris.
 
 options:
   -h, --help            show this help message and exit
+              
   -d, --directory DIRECTORY
                         Directory to scan for games.
   -p, --platform PLATFORM
                         Platform name.
                         The following platforms are available:
                         {}
+              
   -r, --runner RUNNER   Name of Lutris runner to use.
   -c, --core CORE
                         Name of libretro core to use.
                         Will error out if given platform doesn't have Retroarch as an available runner.
+              
   -ld, --lutris-database LUTRIS_DATABASE
                         Path to the Lutris SQLite database.
   -ly, --lutris-yml-dir LUTRIS_YML_DIR
                         Directory containing Lutris yml files.
   -lg, --lutris-game-dir LUTRIS_GAME_DIR
                         Lutris games install dir.
+              
   -i, --platform-info PLATFORM
                         List information for a given platform (runners, cores if libretro is an option and defaults)
   -a, --dump-platform-info
                         Dump all available information related to every and all known platforms
+              
   -f, --file-types [FILE_TYPES ...]
                         Space-separated list of file types to scan for.
   -o, --game-options GAME_OPTIONS
