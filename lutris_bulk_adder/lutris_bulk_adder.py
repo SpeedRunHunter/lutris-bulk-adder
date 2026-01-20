@@ -124,7 +124,13 @@ def format_list(list: list, format_str: str, print_multiple_lines = True, multip
     
     Returns:
         final_str: A single str of the items, either one item per line or multiple items per line.
+    
+    Raises:
+        ValueError: If `print_multiple_lines` is false but `multiple_items_per_line` is true, that is an irrational expectation, as the function would already be joining everything together into one line.
     """
+
+    if not print_multiple_lines and multiple_items_per_line:
+        raise ValueError("There's a bad expectation to not print multiple lines yet print multiple items per line")
 
     final_str: str = ''
 
