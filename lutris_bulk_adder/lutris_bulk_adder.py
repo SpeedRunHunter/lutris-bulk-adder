@@ -10,7 +10,7 @@ from datetime import datetime
 
 from constants import PLATFORMS, DEFAULT_ROM_FILE_EXTS
 
-def option_list(options):
+def option_list(options: str):
     """Option list type for argparse
 
     Args:
@@ -35,7 +35,7 @@ def option_list(options):
     return(pairs)
 
 
-def directory(path):
+def directory(path: str):
     """Directory type for argparse
 
     Args:
@@ -53,7 +53,7 @@ def directory(path):
         return path
 
 
-def scan_for_filetypes(dir, types):
+def scan_for_filetypes(dir: directory, types: list[str]):
     """Scans a directory for all files matching a list of extension types.
 
     Args:
