@@ -80,7 +80,7 @@ def scan_for_filetypes(dir: directory, types: list[str]):
     return files
 
 def split_list(list: list, nested_list_size: int):
-    """Takes a list and converts it into a list of nested lists with n number of items in said nested lists.\n\nThis function will take n number of items from the original list, put them into a new list of n items, and nest that into a new list that will be returned. Should the original list run out of items before the n amount of items is achieved, the nested list will be n-k items smaller than required, where k is the amount of items missing.
+    """Takes a list and converts it into a list of nested lists with n number of items in said nested lists. This function will take n number of items from the original list, put them into a new list of n items, and nest that into a new list that will be returned. Should the original list run out of items before the n amount of items is achieved, the nested list will be n-k items smaller than required, where k is the amount of items missing.
 
     Args:
         list: The combined list of items to be converted.
@@ -110,26 +110,29 @@ def format_list(list: list, format_str: str, print_multiple_lines = True, multip
         DO NOT supply a line feed ('\\n') to the function in the format_str parameter. I mean, I suppose you can, but this function assumes the results NEED to be returned in multiple lines, therefore the function adds the line feed ('\\n'). Unless you need multiple lines between items, you mustn't supply a line feed ('\\n').
     
     Args:
-        Required:
-            list: List of items to convert and format.\n
-            format_str: The format based on which the items in the list will be joined together.
-        Optional:
-            print_multiple_lines: Whether or not the function should print everything into individual lines. My original use case dictated to have the result be in multiple lines. But realizing that it may not be desirable to do that, and also relying on the other coder to supply a line feed ('\\n') in the format string to ensure multi line output, the function now assumes a multi line output is wanted by default, but can be controlled. So the default value is True.\n
-            multiple_items_per_line: Boolean to whether or not as to have multiple items from the list in one line chained together. Default False.\n
-            num_items_per_line: The number of the items from the list that will be added to a single line. Default 5 items per line of text.\n
-            format_between_items: If we format the list to have multiple items in one line, what should the formatting be when joining the items together. The default format is: ', '
+        list (Required): List of items to convert and format.
+
+        format_str (Required): The format based on which the items in the list will be joined together.
+
+        print_multiple_lines (Optional): Whether or not the function should print everything into individual lines. My original use case dictated to have the result be in multiple lines. But realizing that it may not be desirable to do that, and also relying on the other coder to supply a line feed ('\\n') in the format string to ensure multi line output, the function now assumes a multi line output is wanted by default, but can be controlled. So the default value is True.
+
+        multiple_items_per_line (Optional): Boolean to whether or not as to have multiple items from the list in one line chained together. Default False.
+
+        num_items_per_line (Optional): The number of the items from the list that will be added to a single line. Default 5 items per line of text.
+
+        format_between_items (Optional): If we format the list to have multiple items in one line, what should the formatting be when joining the items together. The default format is: ', '
     
     Returns:
-        A single str of the items, either one item per line or multiple items per line.
+        final_str: A single str of the items, either one item per line or multiple items per line.
     """
 
     final_str: str = ''
 
     if multiple_items_per_line:
         for nested_list in split_list(list, num_items_per_line):
-            final_str += format_between_items.join(nested_list) + ('\n' if print_multiple_lines else '') + format_str
+            final_str += format_between_items.join(nested_list) + '\n' + format_str
     else:
-        format_str += '\n'
+        if print_multiple_lines: format_str += '\n'
         final_str += format_str.join(list)
 
     return final_str
@@ -225,7 +228,7 @@ options:
                         Directory containing Lutris yml files.
   -lg, --lutris-game-dir LUTRIS_GAME_DIR
                         Lutris games install dir.
-  -i, --platform-info PLATFORM_INFO
+  -i, --platform-info PLATFORM
                         List information for a given platform (runners, cores if libretro is an option and defaults)
   -a, --dump-platform-info
                         Dump all available information related to every and all known platforms
