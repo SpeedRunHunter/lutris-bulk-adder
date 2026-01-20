@@ -79,8 +79,67 @@ def scan_for_filetypes(dir: directory, types: list[str]):
                     pass
     return files
 
+def split_list(list: list, nested_list_size: int):
+    """Takes a list and converts it into a list of nested lists with n number of items in said nested lists.\n\nThis function will take n number of items from the original list, put them into a new list of n items, and nest that into a new list that will be returned. Should the original list run out of items before the n amount of items is achieved, the nested list will be n-k items smaller than required, where k is the amount of items missing.
+
+    Args:
+        list: The combined list of items to be converted.
+        nested_list_size: The size of the nested lists.
+
+    Returns:
+        ret_list: A list of nested lists of the original items.
+    """
+
+    idx = 0
+    og_list_len = list.__len__()
+    ret_list = []
+    
+    while idx < og_list_len:
+        nested_list = []
+        for i in range (idx, min(idx + nested_list_size, og_list_len)):
+            nested_list.append(list[i])
+        ret_list.append(nested_list)
+        idx += nested_list_size
+
+    return ret_list
+
+def format_list(list: list, format_str: str, print_multiple_lines = True, multiple_items_per_line = False, num_items_per_line = 5, format_between_items = ', '):
+    """Takes a list and formats it into a string according to some requirements, like the format text, multiple items per line output and how many items should be put into one line
+
+    Note:
+        DO NOT supply a line feed ('\\n') to the function in the format_str parameter. I mean, I suppose you can, but this function assumes the results NEED to be returned in multiple lines, therefore the function adds the line feed ('\\n'). Unless you need multiple lines between items, you mustn't supply a line feed ('\\n').
+    
+    Args:
+        Required:
+            list: List of items to convert and format.\n
+            format_str: The format based on which the items in the list will be joined together.
+        Optional:
+            print_multiple_lines: Whether or not the function should print everything into individual lines. My original use case dictated to have the result be in multiple lines. But realizing that it may not be desirable to do that, and also relying on the other coder to supply a line feed ('\\n') in the format string to ensure multi line output, the function now assumes a multi line output is wanted by default, but can be controlled. So the default value is True.\n
+            multiple_items_per_line: Boolean to whether or not as to have multiple items from the list in one line chained together. Default False.\n
+            num_items_per_line: The number of the items from the list that will be added to a single line. Default 5 items per line of text.\n
+            format_between_items: If we format the list to have multiple items in one line, what should the formatting be when joining the items together. The default format is: ', '
+    
+    Returns:
+        A single str of the items, either one item per line or multiple items per line.
+    """
+
+    final_str: str = ''
+
+    if multiple_items_per_line:
+        for nested_list in split_list(list, num_items_per_line):
+            final_str += format_between_items.join(nested_list) + ('\n' if print_multiple_lines else '') + format_str
+    else:
+        format_str += '\n'
+        final_str += format_str.join(list)
+
+    return final_str
+
 def main():
-    parser = argparse.ArgumentParser(description='Scan a directory for ROMs to add to Lutris.')
+    parser = argparse.ArgumentParser(description='Scan a directory for ROMs to add to Lutris.', add_help=False)
+
+    # Custom help - to prettify the platform list printing
+    parser.add_argument('-h', "--help", action='store_true',
+                        help="show this help message and exit")
     
     # Required arguments
     parser.add_argument('-d', '--directory', type=directory,
@@ -101,9 +160,11 @@ def main():
                         default=os.path.join(os.path.expanduser('~'), 'Games'),
                         help='Lutris games install dir.')
 
-    # Other options
+    # New options
     parser.add_argument('-i', "--platform-info", type=str,
                         help='List information for a given platform (runners, cores if libretro is an option and defaults)')
+    
+    # Other options
     parser.add_argument('-f', '--file-types', type=str, nargs='*', default=DEFAULT_ROM_FILE_EXTS,
                         help='Space-separated list of file types to scan for.')
     parser.add_argument('-o', '--game-options', type=option_list,
@@ -116,6 +177,42 @@ Do not write YML files or alter Lutris database, only print data to be written o
     """)
 
     args = parser.parse_args()
+
+    help = args.help
+    if help:
+        print("""usage: lutris_bulk_adder.py [-h] [-d DIRECTORY] [-r RUNNER]
+                            [-p PLATFORM (see choices below)]
+                            [-ld LUTRIS_DATABASE] [-ly LUTRIS_YML_DIR] [-lg LUTRIS_GAME_DIR] [-i PLATFORM_INFO] [-a] [-f [FILE_TYPES ...]] [-o GAME_OPTIONS] [-s [STRIP_FILENAME ...]]
+                            [-n]
+
+Scan a directory for ROMs to add to Lutris.
+
+options:
+  -h, --help            show this help message and exit
+  -d, --directory DIRECTORY
+                        Directory to scan for games.
+  -r, --runner RUNNER   Name of Lutris runner to use.
+  -p, --platform PLATFORM
+                        Platform name.
+                        The following platforms are available:
+                        {}
+  -ld, --lutris-database LUTRIS_DATABASE
+                        Path to the Lutris SQLite database.
+  -ly, --lutris-yml-dir LUTRIS_YML_DIR
+                        Directory containing Lutris yml files.
+  -lg, --lutris-game-dir LUTRIS_GAME_DIR
+                        Lutris games install dir.
+  -i, --platform-info PLATFORM_INFO
+                        List information for a given platform (runners, cores if libretro is an option and defaults)
+  -f, --file-types [FILE_TYPES ...]
+                        Space-separated list of file types to scan for.
+  -o, --game-options GAME_OPTIONS
+                        Additional options to write to the YAML file under the "game" key (e.g. platform number as required for Dolphin)
+  -s, --strip-filename [STRIP_FILENAME ...]
+                        Space-separated list of strings to strip from filenames when generating game names.
+  -n, --no-write        Do not write YML files or alter Lutris database, only print data to be written out to stdout. (i.e. dry run)"""
+              .format(format_list(list(PLATFORMS.keys()), '\t\t\t', multiple_items_per_line=True)))
+        sys.exit(0)
 
     platform_info = args.platform_info
     if platform_info:
