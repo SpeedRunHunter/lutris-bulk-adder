@@ -165,8 +165,9 @@ options:
             game = game.replace(token, "")                  # Strip tokens
 
         # credit to @ronicaltech for this patch
-        # link to pr on his own repo: https://github.com/ronicaltech/lutris-bulk-adder/pull/2        
-        game = re.sub("\(.*?\)|\[.*?\]","",game)            # Strip any textin () or []
+        # link to pr on his own repo: https://github.com/ronicaltech/lutris-bulk-adder/pull/2
+        # small fix by me - regex string was missing the prefixed 'r' character     
+        game = re.sub(r"\(.*?\)|\[.*?\]","",game)            # Strip any textin () or []
 
         game = re.sub(r"\s+", " ", game).strip(" ")         # Remove excess whitespace
 
