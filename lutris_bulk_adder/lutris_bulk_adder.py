@@ -120,14 +120,14 @@ Do not write YML files or alter Lutris database, only print data to be written o
     platform_info = args.platform_info
     if platform_info:
         platform = PLATFORMS[platform_info]
-        print(type(platform))
         cores = platform["cores"]
+        default_runner = platform["default_runner"]
         print("{}:".format(platform_info))
-        print("\tRunners: {}".format(platform["runners"]))
-        print("\tDefault runner: {}".format(platform["default_runner"]))
+        print("\tRunners: {}".format(', '.join(platform["runners"])))
+        print("\tDefault runner: {}".format(default_runner))
         if cores:
-            print("\t Cores: {}".format(cores))
-            print("\t Default core: {}".format(platform["default_core"]))
+            print("\t    Libretro cores: {}".format(', '.join(cores)))
+            if default_runner == "libretro": print("\t    Default libretro core: {}".format(platform["default_core"]))
         sys.exit(0);
 
 
