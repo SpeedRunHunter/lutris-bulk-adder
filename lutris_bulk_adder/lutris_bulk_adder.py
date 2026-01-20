@@ -172,12 +172,14 @@ def main():
                         help="show this help message and exit")
     
     # Required arguments
-    parser.add_argument('-d', '--directory', type=directory,
-                        help='Directory to scan for games.')
-    parser.add_argument('-r', '--runner', type=str,
-                        help='Name of Lutris runner to use.')
     parser.add_argument('-p', '--platform', type=str, choices=PLATFORMS,
                         help='Platform name.')
+    parser.add_argument('-d', '--directory', type=directory,
+                        help='Directory to scan for games.')
+    
+    # Optional arguments
+    parser.add_argument('-r', '--runner', type=str,
+                        help='Name of Lutris runner to use.')
 
     # Lutris paths
     parser.add_argument('-ld', '--lutris-database', type=str,
@@ -223,11 +225,11 @@ options:
   -h, --help            show this help message and exit
   -d, --directory DIRECTORY
                         Directory to scan for games.
-  -r, --runner RUNNER   Name of Lutris runner to use.
   -p, --platform PLATFORM
                         Platform name.
                         The following platforms are available:
                         {}
+  -r, --runner RUNNER   Name of Lutris runner to use.
   -ld, --lutris-database LUTRIS_DATABASE
                         Path to the Lutris SQLite database.
   -ly, --lutris-yml-dir LUTRIS_YML_DIR
