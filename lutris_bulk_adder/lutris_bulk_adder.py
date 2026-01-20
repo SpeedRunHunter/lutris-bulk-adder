@@ -106,12 +106,14 @@ options:
               .format(format_list(list(PLATFORMS.keys()), '\t\t\t', multiple_items_per_line=True)))
         sys.exit(0)
 
+    # Dump all information related to platforms
     dump_platform_info = args.dump_platform_info
     if dump_platform_info:
         for platform in list(PLATFORMS.keys()):
             print_info_for_platform(platform)
         sys.exit(0)
 
+    # Print information related to a specific input platform
     platform_info = args.platform_info
     if platform_info:
         try:
@@ -120,6 +122,7 @@ options:
             print("Error trying to print information for platform {}; did you make a typo perhaps?\n\nAlso note that Python is case-sensitive with dictionaries, so you must ensure proper case format in your input platform's name.\n\tFor example, instead of 'sega genesis' try 'Sega Genesis'.".format(err))
         sys.exit(0);
     
+    # Ensure platform and directory is supplied from arguments
     platform = args.platform
     dir = args.directory
     if not platform or not dir:
