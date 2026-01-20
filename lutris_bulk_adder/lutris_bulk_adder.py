@@ -180,6 +180,8 @@ def main():
     # Optional arguments
     parser.add_argument('-r', '--runner', type=str,
                         help='Name of Lutris runner to use.')
+    parser.add_argument('-c', '--core', type=str,
+                        help='Name of libretro core to use.\nWill error out if given platform doesn\'t have Retroarch as an available runner')
 
     # Lutris paths
     parser.add_argument('-ld', '--lutris-database', type=str,
@@ -230,6 +232,9 @@ options:
                         The following platforms are available:
                         {}
   -r, --runner RUNNER   Name of Lutris runner to use.
+  -c, --core CORE
+                        Name of libretro core to use.
+                        Will error out if given platform doesn't have Retroarch as an available runner.
   -ld, --lutris-database LUTRIS_DATABASE
                         Path to the Lutris SQLite database.
   -ly, --lutris-yml-dir LUTRIS_YML_DIR
