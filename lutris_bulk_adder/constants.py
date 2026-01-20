@@ -1,7 +1,7 @@
 # I plan to put this into the platforms dict for each platform
 
 DEFAULT_ROM_FILE_EXTS = ['iso', 'zip', 'sfc', 'gba', 'gbc', 'gb', 'md', 'n64',
-                         'nes', '32x', 'gg', 'sms', 'bin']
+                         'nes', '32x', 'gg', 'sms', 'bin', 'chd']
 
 # note from Hunter:
 # this is in no way an exhaustive list
