@@ -316,6 +316,11 @@ options:
         game = re.sub(r"\..*", "", os.path.basename(file))  # Strip extension
         for token in args.strip_filename:
             game = game.replace(token, "")                  # Strip tokens
+
+        # credit to @ronicaltech for this patch
+        # link to pr on his own repo: https://github.com/ronicaltech/lutris-bulk-adder/pull/2        
+        game = re.sub("\(.*?\)|\[.*?\]","",game)            # Strip any textin () or []
+
         game = re.sub(r"\s+", " ", game).strip(" ")         # Remove excess whitespace
 
         slug = re.sub(r"[^0-9A-Za-z']", " ", game)          # Split on nonword characters
