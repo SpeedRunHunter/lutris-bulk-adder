@@ -275,6 +275,14 @@ options:
         except KeyError as err:
             print("Error trying to print information for platform {}; did you make a typo perhaps?\n\nAlso note that Python is case-sensitive with dictionaries, so you must ensure proper case format in your input platform's name.\n\tFor example, instead of 'sega genesis' try 'Sega Genesis'.".format(err))
         sys.exit(0);
+    
+    platform = args.platform
+    dir = args.directory
+    if not platform or not dir:
+        print("ERROR: Missing {} argument inputs; they are required for this script to function"
+              .format("platform and directory" if not platform and not dir else ("platform" if not platform else "directory")),
+              file=sys.stderr)
+        sys.exit(-1)
 
     # Lutris SQLite db
     if os.path.isfile(args.lutris_database):
