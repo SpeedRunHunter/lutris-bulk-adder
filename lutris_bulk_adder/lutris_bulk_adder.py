@@ -174,7 +174,7 @@ If you see this message, then you have found a bug.""")
     game_id = new_id + 1
     
     # Scan dir for ROMs
-    files = scan_for_filetypes(args.directory, args.file_types)
+    files = scan_for_filetypes(dir, args.file_types)
     for file in files:
         ts = int(datetime.now(timezone.utc).timestamp())
 
@@ -216,7 +216,7 @@ If you see this message, then you have found a bug.""")
             "slug": slug,
             "installer_slug": None,
             "parent_slug": None,
-            "platform": args.platform,
+            "platform": arg_platform,
             "runner": args.runner,
             "executable": None,
             "directory": args.lutris_game_dir,
