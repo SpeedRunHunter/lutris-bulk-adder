@@ -200,11 +200,9 @@ If you see this message, then you have found a bug.""")
         config_file = '{slug}-{ts}'.format(slug=slug, ts=ts)
         config_file_path = os.path.join(args.lutris_yml_dir, "{}.yml".format(config_file))
         config = {
-            args.runner: {},
             "game": {
                 "main_file": file
             },
-            "system": {}
         }
 
         if args.game_options is not None:
