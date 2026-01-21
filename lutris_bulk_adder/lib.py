@@ -170,6 +170,9 @@ class ExpectedValueMissingInListOfValuesError(ValueError):
 class MisconfiguredDefaultsError(ValueError):
     pass
 
+class InvalidDataError(ValueError):
+    pass
+
 class PlatformData():
     """A simple wrapper class in place of the nested dictionaries stored in the PLATFORMS dictionary\n
     
@@ -211,26 +214,80 @@ class PlatformData():
             MisconfiguredDefaultsError: If default values are supplied - default_core and default_runner - but one of the arguments for the default value is incorrect for the other default value - a default_core is specified, but the default_runner is not libretro.
         """
 
-        if not runners or not default_runner: 
+        # missing runners or default_runner
+        if runners == None or default_runner == None: 
             raise MissingRequiredDataError('{} cannot be a None value and are required'.format(
         "'Runners' and 'default_runner'" if not runners and not default_runner 
         else ("'Runners'" if not runners else "'Default_runner'")
             ))
         
+        # default_runner not a value in runners
         if default_runner not in runners:
             raise DefaultValueNotInListOfValuesError('The default_runner must be a value that can be found in runners')
         
-        if default_core and not cores:
+        # default_core is specified but not cores
+        if default_core and cores == None:
             raise MissingRequiredDataError('There cannot be a default_core specified if there are no cores specified')
         
+        # cores is specified but libretro is not in runners
         if cores and ("libretro" not in runners):
             raise ExpectedValueMissingInListOfValuesError('There cannot be a cores list if libretro is not specified in the runners list')
         
-        if default_core not in cores:
-            raise DefaultValueNotInListOfValuesError('The default_core must be a value that can be found in cores')
+        # default_core not a value in cores
+        if cores != None and default_core != None: 
+            if default_core not in cores:
+                raise DefaultValueNotInListOfValuesError('The default_core must be a value that can be found in cores')
         
+        # default_core specified but libretro is not the default_runner
         if default_core and "libretro" != default_runner:
             raise MisconfiguredDefaultsError('There cannot be a default_core association if the default_runner is not libretro')
+
+        # basic validation
+        invalidations: list[str] = []
+
+        # runner invalidations:
+        # 1. isn't a list
+        # 2. is an empty list
+        # 3. contains a list of empty strings that may or may not contain whitespaces only
+        if type(runners) != list: invalidations.append("The runners input must be a list")
+        else:
+            if len(runners) == 0: invalidations.append("The runners list mustn't be empty")
+            else: 
+                if len(''.join(runners).replace(" ", "")) == 0: invalidations.append("The items in the runners list mustn't be empty")
+
+        # cores invalidations:
+        # 1. isn't a list
+        # 2. is an empty list
+        # 3. contains a list of empty strings that may or may not contain whitespaces only
+        if cores != None:
+            if type(cores) != list: invalidations.append("The cores input must be a list")
+            else:
+                if len(cores) == 0: invalidations.append("The cores list mustn't be empty")
+                else: 
+                    if len(''.join(cores).replace(" ", "")) == 0: invalidations.append("The items in the cores list mustn't be empty")
+
+        # default_runner invalidations:
+        # 1. isn't a str
+        # 2. is an empty str that may or may not contain whitespaces only
+        if type(default_runner) != str: invalidations.append("The default_runner input must be a string")
+        else:
+            if len(default_runner.replace(" ", "")) == 0: invalidations.append("The default_runner string mustn't be empty")
+
+        # default_core invalidations:
+        # 1. isn't a str
+        # 2. is an empty str that may or may not contain whitespaces only
+        if default_core != None:
+            if type(default_core) != str: invalidations.append("The default_core input must be a string")
+            else:
+                if len(default_core.replace(" ", "")) == 0: invalidations.append("The default_core string mustn't be empty")
+
+        # print all invalidations if any
+        if len(invalidations) > 0:
+            raise InvalidDataError("""One or multiple basic validation failures have occoured with the constructor inputs:
+                {}
+            """.format(
+                '\n\t\t'.join(invalidations)
+            ))
 
         self.cores = cores
         self.default_core = default_core
