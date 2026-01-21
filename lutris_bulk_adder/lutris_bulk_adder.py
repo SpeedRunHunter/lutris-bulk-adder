@@ -166,7 +166,9 @@ options:
 
         # credit to @ronicaltech for this patch
         # link to pr on his own repo: https://github.com/ronicaltech/lutris-bulk-adder/pull/2
-        # small fix by me - regex string was missing the prefixed 'r' character     
+        # small fix by @speedrunhunter:
+        # regex string was missing the prefixed 'r' character
+        # which would result in a warning at script runtime
         game = re.sub(r"\(.*?\)|\[.*?\]","",game)            # Strip any textin () or []
 
         game = re.sub(r"\s+", " ", game).strip(" ")         # Remove excess whitespace
@@ -193,6 +195,7 @@ options:
         values = {
             "id": game_id,
             "name": game,
+            "sortname": None,
             "slug": slug,
             "installer_slug": None,
             "parent_slug": None,
@@ -208,10 +211,11 @@ options:
             "configpath": config_file,
             "has_custom_banner": None,
             "has_custom_icon": None,
+            "has_custom_coverart_big": None,
             "playtime": None,
-            "hidden": 0,
             "service": None,
-            "service_id": None
+            "service_id": None,
+            "discord_id": None
         }
 
         # Output to console
