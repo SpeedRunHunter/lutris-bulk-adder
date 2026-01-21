@@ -3,6 +3,14 @@
 DEFAULT_ROM_FILE_EXTS = ['iso', 'zip', 'sfc', 'gba', 'gbc', 'gb', 'md', 'n64',
                          'nes', '32x', 'gg', 'sms', 'bin', 'chd']
 
+# A single place for the message of the key error that may occour
+# when trying to lookup a platform from the dictionary
+
+KEY_ERR_MSG = """Error trying to {} platform {}; did you make a typo perhaps?
+
+Also note that Python is case-sensitive with dictionaries, so you must ensure proper case format in your input platform's name.
+        For example, instead of 'sega genesis' try 'Sega Genesis'."""
+
 # note from Hunter:
 # this is in no way an exhaustive list
 # or dictionary as it has become
