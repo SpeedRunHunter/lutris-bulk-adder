@@ -5,7 +5,7 @@ import yaml
 import sqlite3
 from datetime import datetime, timezone
 
-from constants import DEFAULT_ROM_FILE_EXTS
+from constants import DEFAULT_ROM_FILE_EXTS, KEY_ERR_MSG
 from lib import *
 
 def main():
@@ -119,17 +119,36 @@ options:
         try:
             print_info_for_platform(platform_info)
         except KeyError as err:
-            print("Error trying to print information for platform {}; did you make a typo perhaps?\n\nAlso note that Python is case-sensitive with dictionaries, so you must ensure proper case format in your input platform's name.\n\tFor example, instead of 'sega genesis' try 'Sega Genesis'.".format(err))
+            print(KEY_ERR_MSG.format("print information for", err))
+            sys.exit(-1)
         sys.exit(0);
     
     # Ensure platform and directory is supplied from arguments
-    platform = args.platform
+    arg_platform = args.platform
     dir = args.directory
-    if not platform or not dir:
+    if not arg_platform or not dir:
         print("ERROR: Missing {} argument inputs; they are required for this script to function"
-              .format("platform and directory" if not platform and not dir else ("platform" if not platform else "directory")),
+              .format("platform and directory" if not arg_platform and not dir else ("platform" if not arg_platform else "directory")),
               file=sys.stderr)
         sys.exit(-1)
+
+    # Ensure platform can be found in the dictionary
+    platform = ''
+    try:
+        platform = PLATFORMS[arg_platform]
+    except KeyError as err:
+        print(KEY_ERR_MSG.format("find", err))
+        sys.exit(-1)
+
+    # Safety double check to see if somehow platform 
+    # ended up being empty for some reason still
+    if not platform:
+        print("""There was an unknown error trying to grab the exact platform from the built-in dictionary.
+              
+This shouldn't have happened, because in such event, the attempt at getting an unknown key value platform from the dictionary will throw a Python KeyError which is handled in code via an error message and the program should be exiting right then and there.
+              
+If you see this message, then you have found a bug.""")
+        sys.exit(-999)
 
     # Lutris SQLite db
     if os.path.isfile(args.lutris_database):
