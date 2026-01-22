@@ -8,7 +8,7 @@ I don't really know what will happen if Lutris is open during the import, so mak
 
 ## Rambling
 
-This is a fork of the original developed by yours truly, SpeedRunHunter - or just Hunter if you don't have much time. In prior commits you can find a different version of the README with a lot more text. I grabbed a load of ROMs for the sake of RetroAchievement hunting, and ran into the problem of not being able to easily import my ROMs - because Lutris only knows of the TOSEC project ROMs' file checksums.
+This is a fork of the original project from @hwangeug, developed by yours truly, @SpeedRunHunter - or just Hunter if you don't have much time. In prior commits you can find a different version of the README with a lot more text. I grabbed a load of ROMs for the sake of RetroAchievement hunting, and ran into the problem of not being able to easily import my ROMs - because Lutris only knows of the TOSEC project ROMs' file checksums.
 
 I tried to use the PyPI package version of this script, realizing though that it is outdated compared to the original github repo, which fixed the issue with Lutris's SQLite DB no longer having a `steam_id` columns but instead splitting it into `service` and `service_id` columns. Coupled with some other smaller fixes from @ronicaltech that have pull requests, but weren't upstreamed - if @ronicaltech sees this, I hope you don't mind that I yoinked your fixes; I made sure to include credits to you in code comments, but if you don't like that, I'm absolutely open to figuring something out about it. 
 
