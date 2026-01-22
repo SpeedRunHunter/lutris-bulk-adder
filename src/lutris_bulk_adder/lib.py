@@ -2,7 +2,7 @@ import re
 import os
 import argparse
 
-from constants import PLATFORMS
+from lutris_bulk_adder.constants import PLATFORMS
 
 def option_list(options: str):
     """Option list type for argparse

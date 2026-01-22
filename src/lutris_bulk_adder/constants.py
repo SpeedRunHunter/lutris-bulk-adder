@@ -1,4 +1,4 @@
-from classes import PlatformData
+from lutris_bulk_adder.classes import PlatformData
 
 # I plan to put this into the platforms dict for each platform
 

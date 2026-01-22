@@ -5,8 +5,8 @@ import yaml
 import sqlite3
 from datetime import datetime, timezone
 
-from constants import DEFAULT_ROM_FILE_EXTS, KEY_ERR_MSG, ARG_ERR_MSG
-from lib import *
+from lutris_bulk_adder.constants import DEFAULT_ROM_FILE_EXTS, KEY_ERR_MSG, ARG_ERR_MSG
+from lutris_bulk_adder.lib import *
 
 def main():
     parser = argparse.ArgumentParser(description='Scan a directory for ROMs to add to Lutris.', add_help=False)
