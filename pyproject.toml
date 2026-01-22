@@ -8,10 +8,10 @@ version = "0.1.0"
 dependencies = ['PyYAML']
 requires-python = ">= 3.0"
 authors = [
-    {name = "Eugene Hwang", email = "hwang.eug@gmail.com"}
+    { name = "Eugene Hwang", email = "hwang.eug@gmail.com" }
 ]
 maintainers = [
-    {name = "SpeedRunHunter", email = "marcell2003.sm@gmail.com"}
+    { name = "SpeedRunHunter", email = "marcell2003.sm@gmail.com" }
 ]
 description = "Python script to bulk import a directory of ROM files into Lutris"
 readme = {file = "README.md", content-type = "text/markdown"}
@@ -30,7 +30,7 @@ classifiers = [
 ]
 
 [project.scripts]
-lutris-bulk-adder = "lutrs_bulk_adder.lutris_bulk_adder:main"
+lutris-bulk-adder = "lutris_bulk_adder.lutris_bulk_adder:main"
 
 [project.urls]
 Repository = "https://github.com/SpeedRunHunter/lutris-bulk-adder"
