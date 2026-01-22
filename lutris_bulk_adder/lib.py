@@ -149,11 +149,11 @@ def print_info_for_platform(platform_info: str):
 
     platform = PLATFORMS[platform_info]
     
-    cores = platform["cores"]
-    default_runner = platform["default_runner"]
+    cores = platform.cores
+    default_runner = platform.default_runner
     print("{}:".format(platform_info))
-    print("\tRunners: {}".format(', '.join(platform["runners"])))
+    print("\tRunners: {}".format(', '.join(platform.runners)))
     print("\tDefault runner: {}".format(default_runner))
     if cores:
         print("\t\tLibretro cores: {}".format(', '.join(cores)))
-        if default_runner == "libretro": print("\t\tDefault libretro core: {}".format(platform["default_core"]))
+        if default_runner == "libretro": print("\t\tDefault libretro core: {}".format(platform.default_core))
