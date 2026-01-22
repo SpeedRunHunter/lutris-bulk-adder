@@ -29,15 +29,9 @@ Let me make something clear: I'm sure that some of the things I'm doing may seem
 
 ## Installation
 
-NOTE: This updated script has not yet been published to PyPI. I admit I'm nervous to do so. Also, the original repo had the `setup.py` script use distutils, which I couldn't find information on. I found setuptools instead, although I'm unsure if it's a drop in replacement over distutils. Until this note is removed, the only install method for the script for now is to instead download the script files or clone the git repository.
-
-For future's sake however, this section is updated to contain more information, but may still be subject to some changes - specifically regarding the package name.
-
----
-
 Basic installation with `pip`:
 
-`pip install --user --upgrade lutris-bulk-adder`
+`pip install --user --upgrade lutris-bulk-adder-srh`
 
 If you are on a system with a Python install that throws the `externally-managed-environment` error when trying to install PyPI packages, which is typical for a Linux system in my experience, and your package manager doesn't have this PyPI package available in it, you have two options:
 1. either use a Python virtual environment for the script, and activate that everytime you want to use the script, like so:
@@ -45,29 +39,29 @@ If you are on a system with a Python install that throws the `externally-managed
 ```
 python3 -m venv path/to/venv
 source path/to/venv/bin/activate
-# you mustn't install as a user here
 
+# you mustn't install as a user here with pip
 # the only way to do that would be changing a
 # venv config setting in path/to/venv/pyvenv.cfg
 # which would cause pip to install to a folder
 # outside of the venv folder
 # ask me how I know
-pip install --upgarde lutris-bulk-adder
+pip install --upgarde lutris-bulk-adder-srh
 ```
 
 2. alternatively, install and use `pipx` instead to install the script; it will automate creating the virtual environment, but will also setup a link to the script in a folder that's on your system's PATH environment variable
 
-`pipx install lutris-bulk-adder`
+`pipx install lutris-bulk-adder-srh`
 
 `pipx` by default already installs PyPI packages for the user only.
 
 To update with `pipx`:
 
-`pipx upgrade lutris-bulk-adder`
+`pipx upgrade lutris-bulk-adder-srh`
 
 You can also install the package globally in `pipx` to install it for every user:
 
-`pipx install --global lutris-bulk-adder`
+`pipx install --global lutris-bulk-adder-srh`
 
 ## Usage
 
@@ -111,11 +105,11 @@ These default to the default locations that Lutris will install to.
 
 ### Examples
 
-`lutris_bulk_adder -d /data/Emulation/Wii -r dolphin -s '(USA)' -p "Nintendo Wii" -o platform=1`
+`lutris-bulk-adder -d /data/Emulation/Wii -r dolphin -s '(USA)' -p "Nintendo Wii" -o platform=1`
 
 Adds all files in `/data/Emulation/Wii` to Lutris via the `dolphin` runner, ignoring substrings containing `(USA)` in the filename when deriving the game name, for the `Nintendo Wii` platform, and adds `platform: '1'` to the `game` key in the YAML file.
 
-`lutris_bulk_adder -d ~/ROMZZZ/SegaLibrary/MegaDriveLibrary -p "Sega Mega Drive"`
+`lutris-bulk-adder -d ~/ROMZZZ/SegaLibrary/MegaDriveLibrary -p "Sega Mega Drive"`
 
 Adds all files in `~/ROMZZZ/SegaLibrary/MegaDriveLibrary` to Lutris via the default runner for the `Sega Mega Drive` platform. For Mega Drive - or Genesis, both names are supported and that includes the Sega CD/Mega CD -, or other platforms where the default may be libretro, which it is for the Mega Drive, as is required and setup usually by Lutris itself, the YAML file will contain the core information for libretro. And in this case whatever the default core is.
 
@@ -127,7 +121,7 @@ Adds all files in `~/ROMZZZ/SegaLibrary/MegaDriveLibrary` to Lutris via the defa
 
 </details><br/>
 
-`lutris_bulk_adder -d /run/media/user/CDZZZ/SegaCD -p "Sega CD" -c clowncdemu`
+`lutris-bulk-adder -d /run/media/user/CDZZZ/SegaCD -p "Sega CD" -c clowncdemu`
 
 Adds all files in `/run/media/user/CDZZZ/SegaCD` to Lutris via the default runner for the `Sega CD` platform, and use the `clowncdemu` libretro core. In this scenario we make the assumption on the script side - spoiler, correctly as well - that the default runner for the `Sega CD` is RetroArch. If that's not the case, the `-c` flag and its argument are ignored.
 
