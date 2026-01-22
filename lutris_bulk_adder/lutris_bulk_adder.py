@@ -164,6 +164,20 @@ If you see this message, then you have found a bug.""")
             print("Error trying to find the specified runner in the platform's list of runners known by the script; did you make a typo perhaps?")
             sys.exit(-1)
         runner = arg_runner
+
+    # setup core
+    # check if selected runner is libretro
+    # use default core first
+    # if available use arg provided core
+    # test if core is known for this platform
+    core = None
+    if runner == 'libretro':
+        core = platform.default_core
+        arg_core = args.core
+        if arg_core:
+            if arg_core not in platform.cores:
+                print("Error trying to find the specified core in the platform's list of cores known by the script; did you make a typo perhaps?")
+            core = arg_core
     
     # Lutris SQLite db
     if os.path.isfile(args.lutris_database):
@@ -219,6 +233,9 @@ If you see this message, then you have found a bug.""")
                 "main_file": file
             },
         }
+        
+        if core:
+            config['game']['core'] = core
 
         if args.game_options is not None:
             config['game'].update(args.game_options)
