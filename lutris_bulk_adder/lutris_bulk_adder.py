@@ -154,6 +154,18 @@ This shouldn't have happened, because in such event, the attempt at getting an u
 If you see this message, then you have found a bug.""")
         sys.exit(-999)
 
+    # setup runner
+    # use default runner first
+    # if available use arg provided runner
+    # test if runner is known for this platform
+    runner = platform.default_runner
+    arg_runner = args.runner
+    if arg_runner:
+        if arg_runner not in platform.runners:
+            print("Error trying to find the specified runner in the platform's list of runners known by the script; did you make a typo perhaps?")
+            sys.exit(-1)
+        runner = arg_runner
+    
     # Lutris SQLite db
     if os.path.isfile(args.lutris_database):
         conn = sqlite3.connect(args.lutris_database)
@@ -176,15 +188,6 @@ If you see this message, then you have found a bug.""")
         new_id = 0
 
     game_id = new_id + 1
-    
-    # grab default runner unless runner is specified in arguments
-    runner = platform.default_runner
-    arg_runner = args.runner
-    if not arg_runner:
-        if arg_runner not in platform.runners:
-            print("Error trying to find the specified runner in the platform's list of runners known by the script; did you make a typo perhaps?")
-            sys.exit(-1)
-        runner = arg_runner
     
     # Scan dir for ROMs
     files = scan_for_filetypes(dir, args.file_types)
