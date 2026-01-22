@@ -38,7 +38,7 @@ def main():
                         default=os.path.join(os.path.expanduser('~'), 'Games'),
                         help='Lutris games install dir.')
 
-    # New options
+    # Info options
     parser.add_argument('-i', "--platform-info", type=str,
                         help='List information for a given platform (runners, cores if libretro is an option and defaults)')
     parser.add_argument('-a', "--dump-platform-info", action='store_true',
