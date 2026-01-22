@@ -173,6 +173,15 @@ If you see this message, then you have found a bug.""")
 
     game_id = new_id + 1
     
+    # grab default runner unless runner is specified in arguments
+    runner = platform.default_runner
+    arg_runner = args.runner
+    if not arg_runner:
+        if arg_runner not in platform.runners:
+            print("Error trying to find the specified runner in the platform's list of runners known by the script; did you make a typo perhaps?")
+            sys.exit(-1)
+        runner = arg_runner
+    
     # Scan dir for ROMs
     files = scan_for_filetypes(dir, args.file_types)
     for file in files:
@@ -217,7 +226,7 @@ If you see this message, then you have found a bug.""")
             "installer_slug": None,
             "parent_slug": None,
             "platform": arg_platform,
-            "runner": args.runner,
+            "runner": runner,
             "executable": None,
             "directory": args.lutris_game_dir,
             "updated": None,
