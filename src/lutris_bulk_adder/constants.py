@@ -495,7 +495,7 @@ PLATFORMS = {
         ], 
 		default_core='gambatte'
     ),
-    'Nintendo GameCube': PlatformData(
+    'Nintendo Gamecube': PlatformData(
 		runners=['libretro', 'dolphin'], 
 		default_runner='libretro', 
 		cores=['dolphin'], 
