@@ -593,6 +593,12 @@ PLATFORMS = {
 		cores=['scummvm'], 
 		default_core=None
     ),
+    'Sega 32X': PlatformData(
+		runners=['libretro'], 
+		default_runner='libretro', 
+		cores=['picodrive'], 
+		default_core='picodrive'
+	),
     'Sega CD': PlatformData(
 		runners=['libretro'], 
 		default_runner='libretro', 
