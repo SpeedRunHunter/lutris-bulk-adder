@@ -1,4 +1,4 @@
-from lib import PlatformData
+from classes import PlatformData
 
 # I plan to put this into the platforms dict for each platform
 
