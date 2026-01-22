@@ -288,6 +288,8 @@ If you see this message, then you have found a bug.""")
             conn.commit()
 
         game_id += 1
+        
+    print("Success? Check on Lutris now")
 
 
 if __name__ == '__main__':
