@@ -84,9 +84,8 @@ options:
                         The script will exit with an error if the given runner is unknown by the built-in dictionary for the specified platform.
   -c, --core CORE
                         Name of libretro core to use.
-                        The script will exit with an error if the given platform:
-                            - doesn't have Retroarch as an available runner or
-                            - the core is unknown by the built-in dictionary for the specified platform.
+                        The script will ignore this value if libretro isn't selected as a runner for the platform. 
+                        The script will exit with an error if the given platform the core is unknown by the built-in dictionary for the specified platform.
               
   -ld, --lutris-database LUTRIS_DATABASE
                         Path to the Lutris SQLite database.
