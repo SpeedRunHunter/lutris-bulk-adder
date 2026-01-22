@@ -5,7 +5,7 @@ import yaml
 import sqlite3
 from datetime import datetime, timezone
 
-from constants import DEFAULT_ROM_FILE_EXTS, KEY_ERR_MSG
+from constants import DEFAULT_ROM_FILE_EXTS, KEY_ERR_MSG, ARG_ERR_MSG
 from lib import *
 
 def main():
@@ -161,7 +161,7 @@ If you see this message, then you have found a bug.""")
     arg_runner = args.runner
     if arg_runner:
         if arg_runner not in platform.runners:
-            print("Error trying to find the specified runner in the platform's list of runners known by the script; did you make a typo perhaps?")
+            print(ARG_ERR_MSG.format(selection = "runner", arg = arg_runner))
             sys.exit(-1)
         runner = arg_runner
 
@@ -176,7 +176,7 @@ If you see this message, then you have found a bug.""")
         arg_core = args.core
         if arg_core:
             if arg_core not in platform.cores:
-                print("Error trying to find the specified core in the platform's list of cores known by the script; did you make a typo perhaps?")
+                print(ARG_ERR_MSG.format(selection = "runner", arg = arg_core))
             core = arg_core
     
     # Lutris SQLite db

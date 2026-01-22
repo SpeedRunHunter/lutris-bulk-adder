@@ -12,6 +12,8 @@ KEY_ERR_MSG = """Error trying to {} platform {}; did you make a typo perhaps?
 
 Also note that Python is case-sensitive with dictionaries, so you must ensure proper case format in your input platform's name.
         For example, instead of 'sega genesis' try 'Sega Genesis'."""
+        
+ARG_ERR_MSG = "Error trying to find the specified {selection} {arg} in the platform's list of {selection} known by the script; did you make a typo perhaps?"
 
 # note from Hunter:
 # this is in no way an exhaustive list
