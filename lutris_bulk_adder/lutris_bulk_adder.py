@@ -176,7 +176,7 @@ If you see this message, then you have found a bug.""")
         arg_core = args.core
         if arg_core:
             if arg_core not in platform.cores:
-                print(ARG_ERR_MSG.format(selection = "runner", arg = arg_core))
+                print(ARG_ERR_MSG.format(selection = "core", arg = arg_core))
             core = arg_core
     
     # Lutris SQLite db
