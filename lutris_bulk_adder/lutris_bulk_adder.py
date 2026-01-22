@@ -78,11 +78,15 @@ options:
                         Platform name.
                         The following platforms are available:
                         {}
+                        The script will exit with an error if the given platform is unknown by the built-in dictionary.
               
   -r, --runner RUNNER   Name of Lutris runner to use.
+                        The script will exit with an error if the given runner is unknown by the built-in dictionary for the specified platform.
   -c, --core CORE
                         Name of libretro core to use.
-                        Will error out if given platform doesn't have Retroarch as an available runner.
+                        The script will exit with an error if the given platform:
+                            - doesn't have Retroarch as an available runner or
+                            - the core is unknown by the built-in dictionary for the specified platform.
               
   -ld, --lutris-database LUTRIS_DATABASE
                         Path to the Lutris SQLite database.
